@@ -54,15 +54,26 @@
       // ^ = starts with
       // /i means insensitive. Can be capital letters or whatever with those word.
       // the space between or conditions is to specify one word rather than part of a word
-      return bandName.replace(/^(a |the |an )/i)
+      // trim() gets rid of any spaces after it
+      return bandName.replace(/^(a |the |an )/i).trim();
     }
-    const sortedBands = bands.sort(function (a, b) {
-      if (a > b) {
+    const sortedBands = bands.sort((a, b) => {
+      // using strip in the if statement makes it so we do not alter the original array data
+      if (strip(a) > strip(b)) {
         return 1;
       } else {
         return -1;
       }
+      // or use ternirary operator by saying
+      // return strip(a) > strip(b) ? 1 : -1;
+      // if you alter the whole function, you can write it on one line as,
+      // const sortedBands = bands.sort((a, b) => strip(a) > strip(b) ? 1 : -1);
     });
+
+    document.querySelector('#bands').innerHTML =
+      sortedBands
+        .map(band => `<li>${band}</li>`)
+        .join('');
 
   </script>
 
